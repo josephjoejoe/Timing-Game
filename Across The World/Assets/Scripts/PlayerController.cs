@@ -4,11 +4,13 @@ public class PlayerController : MonoBehaviour
 {
     //movement
     public float walkSpeed;
+    //public float walkTimer;
     public float sprintSpeed;
     public float jumpForce;
     public float jumpTimer;
     public bool onGround = false;
     public float lastSpeed;
+    public bool jumped;
     public Vector3 lastMoveDirection; // stores movement direction when jumping
 
     public Rigidbody RB;
@@ -62,6 +64,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.W))
             {
                 vel += transform.forward * currentSpeed;
+                //walkTimer += Time.deltaTime;
             }
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
             {
@@ -102,39 +105,44 @@ public class PlayerController : MonoBehaviour
             if (jumpForce > 0 && Input.GetKeyUp(KeyCode.Space) && isGrounded())
             {
                 vel.y += jumpForce;
-                jumpTimer = 0;
+                //jumpTimer = 0;
             }
             else
             {
                 vel.y = RB.linearVelocity.y;
-            }
-
-            if (Input.GetKey(KeyCode.Space))
-            {
-                jumpTimer += Time.deltaTime;
-                jumpPower();
+                jumpForce = 5;
             }
 
             if (!isGrounded())
             {
-                jumpForce = 5;
                 walkSpeed = 0;
                 sprintSpeed = 0;
             }
             else
             {
                 walkSpeed = 5;
-                sprintSpeed = 8;
+                sprintSpeed = 8;                
             }
-
         }
         else
         {
+
             //preserve forward momentum from when you jumped
             vel = lastMoveDirection * lastSpeed;
             vel.y = RB.linearVelocity.y; // keep gravity and vertical velocity
+
         }
-        RB.linearVelocity = vel; 
+        RB.linearVelocity = vel;
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            jumpTimer += Time.deltaTime;
+            jumpPower();
+        }
+        else
+        {
+            jumpTimer = 0;
+        }
     }
 
     public bool isGrounded()
