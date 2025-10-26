@@ -6,6 +6,10 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed;
     public float sprintSpeed;
     public float jumpForce;
+    public float jumpTimer;
+    public bool onGround = false;
+    public float lastSpeed;
+    public Vector3 lastMoveDirection; // stores movement direction when jumping
 
     public Rigidbody RB;
     public Camera eyes;
@@ -46,53 +50,91 @@ public class PlayerController : MonoBehaviour
         eyes.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         Vector3 vel = new Vector3(0, 0, 0);
-        
-        if (Input.GetKey(KeyCode.W))
+        if (isGrounded())
         {
-            vel += transform.forward * walkSpeed;
-        }    
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
-        {
-            vel += transform.forward * sprintSpeed;
-        }
+            float currentSpeed = walkSpeed;
 
-        if (Input.GetKey(KeyCode.D))
-        {
-            vel += transform.right * walkSpeed;
-        }
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.D))
-        {
-            vel += transform.right * sprintSpeed;
-        }
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                currentSpeed = sprintSpeed;
+            }
 
-        if (Input.GetKey(KeyCode.S))
-        {
-            vel -= transform.forward * walkSpeed;
-        }
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.S))
-        {
-            vel -= transform.forward * sprintSpeed;
-        }
+            if (Input.GetKey(KeyCode.W))
+            {
+                vel += transform.forward * currentSpeed;
+            }
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
+            {
+                vel += transform.forward * sprintSpeed;
+            }
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            vel -= transform.right * walkSpeed;
-        }
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.A))
-        {
-            vel -= transform.right * sprintSpeed;
-        }
+            if (Input.GetKey(KeyCode.D))
+            {
+                vel += transform.right * currentSpeed;
+            }
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.D))
+            {
+                vel += transform.right * sprintSpeed;
+            }
 
-        if (jumpForce > 0 && Input.GetKey(KeyCode.Space) && isGrounded())
-        {
-            vel.y += jumpForce;
+            if (Input.GetKey(KeyCode.S))
+            {
+                vel -= transform.forward * currentSpeed;
+            }
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.S))
+            {
+                vel -= transform.forward * sprintSpeed;
+            }
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                vel -= transform.right * currentSpeed;
+            }
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.A))
+            {
+                vel -= transform.right * sprintSpeed;
+            }
+
+            // Save the player's current move direction & speed before jumping
+            lastMoveDirection = vel.normalized;
+            lastSpeed = currentSpeed; // only use the actual chosen speed
+
+            if (jumpForce > 0 && Input.GetKeyUp(KeyCode.Space) && isGrounded())
+            {
+                vel.y += jumpForce;
+                jumpTimer = 0;
+            }
+            else
+            {
+                vel.y = RB.linearVelocity.y;
+            }
+
+            if (Input.GetKey(KeyCode.Space))
+            {
+                jumpTimer += Time.deltaTime;
+                jumpPower();
+            }
+
+            if (!isGrounded())
+            {
+                jumpForce = 5;
+                walkSpeed = 0;
+                sprintSpeed = 0;
+            }
+            else
+            {
+                walkSpeed = 5;
+                sprintSpeed = 8;
+            }
+
         }
         else
         {
-            vel.y = RB.linearVelocity.y;
+            //preserve forward momentum from when you jumped
+            vel = lastMoveDirection * lastSpeed;
+            vel.y = RB.linearVelocity.y; // keep gravity and vertical velocity
         }
-
-        RB.linearVelocity = vel;
+        RB.linearVelocity = vel; 
     }
 
     public bool isGrounded()
@@ -109,6 +151,34 @@ public class PlayerController : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position - transform.up * groundCheckDistance, cubeSize);
+    }
+
+    void jumpPower()
+    {
+        if(jumpTimer > 0.5)
+        {
+            jumpForce = 5.5f;
+        }
+        if (jumpTimer > 1)
+        {
+            jumpForce = 6f;
+        }
+        if (jumpTimer > 1.5)
+        {
+            jumpForce = 6.5f;
+        }
+        if (jumpTimer > 2)
+        {
+            jumpForce = 7f;
+        }
+        if (jumpTimer > 2.5)
+        {
+            jumpForce = 7.5f;
+        }
+        if (jumpTimer > 3)
+        {
+            jumpForce = 8f;
+        }
     }
 }
 
