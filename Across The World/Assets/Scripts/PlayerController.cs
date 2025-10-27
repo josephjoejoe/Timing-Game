@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 walkSpeed = 5;
-                sprintSpeed = 8;                
+                sprintSpeed = 6;                
             }
         }
         else
@@ -200,7 +200,7 @@ public class PlayerController : MonoBehaviour
     }
     void walkingspeed()
     {
-        if (walkTimer > 0.2)
+        if (walkTimer > 0)
         {
             walkSpeed = 3;
         }
