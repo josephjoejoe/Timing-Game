@@ -4,7 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     //movement
     public float walkSpeed;
-    //public float walkTimer;
+    public float walkTimer;
     public float sprintSpeed;
     public float jumpForce;
     public float jumpTimer;
@@ -64,8 +64,9 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.W))
             {
                 vel += transform.forward * currentSpeed;
-                //walkTimer += Time.deltaTime;
+                walkTimer += Time.deltaTime;
             }
+            
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
             {
                 vel += transform.forward * sprintSpeed;
@@ -117,6 +118,7 @@ public class PlayerController : MonoBehaviour
             {
                 walkSpeed = 0;
                 sprintSpeed = 0;
+                walkTimer = 0;
             }
             else
             {
@@ -126,13 +128,21 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-
             //preserve forward momentum from when you jumped
             vel = lastMoveDirection * lastSpeed;
             vel.y = RB.linearVelocity.y; // keep gravity and vertical velocity
-
         }
         RB.linearVelocity = vel;
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            walkTimer += Time.deltaTime;
+            walkingspeed();
+        }
+        else
+        {
+            walkTimer = 0;
+        }
 
         if (Input.GetKey(KeyCode.Space))
         {
@@ -186,6 +196,29 @@ public class PlayerController : MonoBehaviour
         if (jumpTimer > 3)
         {
             jumpForce = 8f;
+        }
+    }
+    void walkingspeed()
+    {
+        if (walkTimer > 0.2)
+        {
+            walkSpeed = 3;
+        }
+        if (walkTimer > 0.4)
+        {
+            walkSpeed = 3.5f;
+        }
+        if (walkTimer > 0.6f)
+        {
+            walkSpeed = 4;
+        }
+        if (walkTimer > 0.8)
+        {
+            walkSpeed = 4.5f;
+        }
+        if (walkTimer > 1)
+        {
+            walkSpeed = 5;
         }
     }
 }
