@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    //new movement
+    //public Vector3 inputDir;
+
     //movement
     public float walkSpeed;
     public float walkTimer;
@@ -15,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody RB;
     public Camera eyes;
+    public Animation anim;
 
     //groundcheck raycast
     public float groundCheckDistance;
@@ -29,6 +33,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         RB = GetComponent<Rigidbody>();
+        anim = GetComponent<Animation>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -50,6 +55,11 @@ public class PlayerController : MonoBehaviour
         xRotation += yRot;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         eyes.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        // new movement
+        //inputDir = Input.GetAxisRaw("Horizontal") * Camera.main.transform.right + Input.GetAxisRaw("Vertical") * Camera.main.transform.forward;
+        //inputDir.y = 0;
+        //inputDir.Normalize();
+
 
         Vector3 vel = new Vector3(0, 0, 0);
         if (isGrounded())
@@ -66,7 +76,7 @@ public class PlayerController : MonoBehaviour
                 vel += transform.forward * currentSpeed;
                 walkTimer += Time.deltaTime;
             }
-            
+
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
             {
                 vel += transform.forward * sprintSpeed;
@@ -106,7 +116,7 @@ public class PlayerController : MonoBehaviour
             if (jumpForce > 0 && Input.GetKeyUp(KeyCode.Space) && isGrounded())
             {
                 vel.y += jumpForce;
-                //jumpTimer = 0;
+                //anim.Play
             }
             else
             {
@@ -123,7 +133,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 walkSpeed = 5;
-                sprintSpeed = 6;                
+                sprintSpeed = 6;
             }
         }
         else
