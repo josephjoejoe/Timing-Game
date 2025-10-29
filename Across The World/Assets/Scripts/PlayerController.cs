@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody RB;
     public Camera eyes;
-    public Animation anim;
+    //public Animation anim;
 
     //groundcheck raycast
     public float groundCheckDistance;
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         RB = GetComponent<Rigidbody>();
-        anim = GetComponent<Animation>();
+        //anim = GetComponent<Animation>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
