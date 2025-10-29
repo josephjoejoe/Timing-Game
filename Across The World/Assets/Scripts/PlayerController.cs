@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody RB;
     public Camera eyes;
+    public BoxCollider leftArm;
+    public BoxCollider rightArm;
     //public Animation anim;
 
     //groundcheck raycast
@@ -164,7 +166,7 @@ public class PlayerController : MonoBehaviour
             jumpTimer = 0;
         }
     }
-
+    
     public bool isGrounded()
     {
         if (Physics.Raycast(transform.position, -transform.up, out hit, groundCheckDistance))
