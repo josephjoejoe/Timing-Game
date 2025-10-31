@@ -15,7 +15,7 @@ public class InteractableRaycast : MonoBehaviour
 
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -24,15 +24,31 @@ public class InteractableRaycast : MonoBehaviour
         RaycastHit hit;
         Vector3 forward = transform.TransformDirection(Vector3.forward);
 
-        //Button Raycast
+        // Button Raycast
         if (Physics.Raycast(transform.position, forward, out hit, raylength))
         {
+            // Make sure we only destroy objects with the Enemy tag
             if (hit.collider.CompareTag(interactableTag))
             {
                 CrosshairChange(true);
+
                 if (Input.GetKeyDown(killEnemy))
                 {
-                    Destroy(gameObject);
+                    // Check if the enemy is not the player or parented player
+                    GameObject target = hit.collider.gameObject;
+
+                    // If the enemy has the player as a child, detach player first
+                    PlayerController playerController = target.GetComponentInChildren<PlayerController>();
+                    if (playerController != null)
+                    {
+                        // Release the player if attached
+                        playerController.transform.SetParent(null);
+                        playerController.EnableMovement();
+                    }
+
+                    // Destroy the enemy
+                    Destroy(target);
+                    Debug.Log("Enemy destroyed while attached!");
                 }
             }
         }
@@ -41,6 +57,7 @@ public class InteractableRaycast : MonoBehaviour
             CrosshairChange(false);
         }
     }
+
 
     void CrosshairChange(bool on)
     {
