@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -31,6 +32,11 @@ public class PlayerController : MonoBehaviour
     private float xRotation = 0f;
     public float mouseSensitivity;
 
+    // Jump Meter
+    public Image jumpMeter;
+    public float maxJump;
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -46,6 +52,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // jump meter to show the player how much power the jump will have
+        jumpMeter.fillAmount = Mathf.Clamp01(jumpTimer / maxJump);
+
+
         //Look left/right with body 
         float xRot = Input.GetAxis("Mouse X") * mouseSensitivity;
         transform.Rotate(0, xRot, 0);
