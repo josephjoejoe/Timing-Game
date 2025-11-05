@@ -19,9 +19,7 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody RB;
     public Camera eyes;
-    public BoxCollider leftArm;
-    public BoxCollider rightArm;
-    //public Animation anim;
+    public Animator anim;
 
     //groundcheck raycast
     public float groundCheckDistance;
@@ -41,7 +39,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         RB = GetComponent<Rigidbody>();
-        //anim = GetComponent<Animation>();
+        anim = GetComponent<Animator>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -81,67 +79,72 @@ public class PlayerController : MonoBehaviour
             return; // prevents any movement when disabled
         }
         Vector3 vel = new Vector3(0, 0, 0);
-            if (isGrounded())
+        if (isGrounded())
+        {
+            anim.SetBool("Idle", true);
+            float currentSpeed = walkSpeed;
+
+            if (Input.GetKey(KeyCode.LeftShift))
             {
-                float currentSpeed = walkSpeed;
+                currentSpeed = sprintSpeed;
+            }
 
-                if (Input.GetKey(KeyCode.LeftShift))
-                {
-                    currentSpeed = sprintSpeed;
-                }
+            if (Input.GetKey(KeyCode.W))
+            {
+                vel += transform.forward * currentSpeed;
+                walkTimer += Time.deltaTime;
+                anim.SetBool("WalkingForward", true);
+            }
 
-                if (Input.GetKey(KeyCode.W))
-                {
-                    vel += transform.forward * currentSpeed;
-                    walkTimer += Time.deltaTime;
-                }
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
+            {
+                vel += transform.forward * sprintSpeed;
+            }
 
-                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
-                {
-                    vel += transform.forward * sprintSpeed;
-                }
+            if (Input.GetKey(KeyCode.D))
+            {
+                vel += transform.right * currentSpeed;
+            }
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.D))
+            {
+                vel += transform.right * sprintSpeed;
+            }
 
-                if (Input.GetKey(KeyCode.D))
-                {
-                    vel += transform.right * currentSpeed;
-                }
-                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.D))
-                {
-                    vel += transform.right * sprintSpeed;
-                }
+            if (Input.GetKey(KeyCode.S))
+            {
+                vel -= transform.forward * currentSpeed;
+            }
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.S))
+            {
+                vel -= transform.forward * sprintSpeed;
+            }
 
-                if (Input.GetKey(KeyCode.S))
-                {
-                    vel -= transform.forward * currentSpeed;
-                }
-                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.S))
-                {
-                    vel -= transform.forward * sprintSpeed;
-                }
+            if (Input.GetKey(KeyCode.A))
+            {
+                vel -= transform.right * currentSpeed;
+            }
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.A))
+            {
+                vel -= transform.right * sprintSpeed;
+            }
 
-                if (Input.GetKey(KeyCode.A))
-                {
-                    vel -= transform.right * currentSpeed;
-                }
-                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.A))
-                {
-                    vel -= transform.right * sprintSpeed;
-                }
+            // Save the player's current move direction & speed before jumping
+            lastMoveDirection = vel.normalized;
+            lastSpeed = currentSpeed; // only use the actual chosen speed
 
-                // Save the player's current move direction & speed before jumping
-                lastMoveDirection = vel.normalized;
-                lastSpeed = currentSpeed; // only use the actual chosen speed
+            if (jumpForce > 0 && Input.GetKeyUp(KeyCode.Space) && isGrounded())
+            {
+                vel.y += jumpForce;
+                anim.SetBool("Jumping", true);
+                anim.SetBool("WalkingForward", false);
+            }
+            else
+            {
+                vel.y = RB.linearVelocity.y;
+                jumpForce = 5;
+                anim.SetBool("Jumping", false);
+            }
 
-                if (jumpForce > 0 && Input.GetKeyUp(KeyCode.Space) && isGrounded())
-                {
-                    vel.y += jumpForce;
-                    //anim.Play
-                }
-                else
-                {
-                    vel.y = RB.linearVelocity.y;
-                    jumpForce = 5;
-                }
             if (canMove)
             {
                 if (!isGrounded())
@@ -149,14 +152,18 @@ public class PlayerController : MonoBehaviour
                     walkSpeed = 0;
                     sprintSpeed = 0;
                     walkTimer = 0;
+                    anim.SetBool("Idle", false);
+                    anim.SetBool("WalkingForward", false);
+
                 }
                 else
                 {
                     walkSpeed = 5;
                     sprintSpeed = 6;
+                    anim.SetBool("Landing", true);
                 }
             }
-            }
+        }
             else
             {
                 //preserve forward momentum from when you jumped
@@ -166,25 +173,26 @@ public class PlayerController : MonoBehaviour
 
             RB.linearVelocity = vel;
 
-            if (Input.GetKey(KeyCode.W))
-            {
-                walkTimer += Time.deltaTime;
-                walkingspeed();
-            }
-            else
-            {
-                walkTimer = 0;
-            }
+        if (Input.GetKey(KeyCode.W))
+        {
+            walkTimer += Time.deltaTime;
+            walkingspeed();
+        }
+        else
+        {
+            walkTimer = 0;
+        }
 
-            if (Input.GetKey(KeyCode.Space))
-            {
-                jumpTimer += Time.deltaTime;
-                jumpPower();
-            }
-            else
-            {
-                jumpTimer = 0;
-            }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            jumpTimer += Time.deltaTime;
+            jumpPower();
+            //anim.SetBool("Landing", false);
+        }
+        else
+        {
+            jumpTimer = 0;
+        }
         Debug.Log($"canMove: {canMove}, walkSpeed: {walkSpeed}, grounded: {isGrounded()}, velocity: {RB.linearVelocity}");
 
     }
