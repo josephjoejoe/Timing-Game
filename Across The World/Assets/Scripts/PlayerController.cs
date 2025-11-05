@@ -50,6 +50,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // controles how animation works for walking
+        Vector3 horz = new Vector3(RB.linearVelocity.x, 0, RB.linearVelocity.z);
+        anim.SetFloat("HorzVel", horz.magnitude);
+
+        //controles how anaimtion works for jumping
+        Vector3 vert = new Vector3(0, RB.linearVelocity.y,0);
+        anim.SetFloat("VertVel", vert.magnitude);
+
+
         // jump meter to show the player how much power the jump will have
         jumpMeter.fillAmount = Mathf.Clamp01(jumpTimer / maxJump);
 
@@ -93,7 +102,6 @@ public class PlayerController : MonoBehaviour
             {
                 vel += transform.forward * currentSpeed;
                 walkTimer += Time.deltaTime;
-                anim.SetBool("WalkingForward", true);
             }
 
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
@@ -135,14 +143,11 @@ public class PlayerController : MonoBehaviour
             if (jumpForce > 0 && Input.GetKeyUp(KeyCode.Space) && isGrounded())
             {
                 vel.y += jumpForce;
-                anim.SetBool("Jumping", true);
-                anim.SetBool("WalkingForward", false);
             }
             else
             {
                 vel.y = RB.linearVelocity.y;
                 jumpForce = 5;
-                anim.SetBool("Jumping", false);
             }
 
             if (canMove)
@@ -153,14 +158,11 @@ public class PlayerController : MonoBehaviour
                     sprintSpeed = 0;
                     walkTimer = 0;
                     anim.SetBool("Idle", false);
-                    anim.SetBool("WalkingForward", false);
-
                 }
                 else
                 {
                     walkSpeed = 5;
                     sprintSpeed = 6;
-                    anim.SetBool("Landing", true);
                 }
             }
         }
