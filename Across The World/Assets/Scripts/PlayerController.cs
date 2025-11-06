@@ -6,6 +6,11 @@ public class PlayerController : MonoBehaviour
     //new movement
     //public Vector3 inputDir;
 
+    //sound FX
+    [SerializeField] private AudioClip walking;
+    private AudioSource walkSource;
+    private bool isWalkingSoundPlaying = false;
+
     //movement
     public float walkSpeed;
     public float walkTimer;
@@ -45,6 +50,13 @@ public class PlayerController : MonoBehaviour
 
         canMove = true;
         Debug.Log("Force-enabled canMove at start");
+
+        // --- Initialize walking audio source ---
+        walkSource = gameObject.AddComponent<AudioSource>();
+        walkSource.clip = walking;
+        walkSource.loop = true;
+        walkSource.playOnAwake = false;
+        walkSource.volume = 1f; // tweak to taste
     }
 
     // Update is called once per frame
@@ -166,14 +178,28 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-            else
-            {
-                //preserve forward momentum from when you jumped
-                vel = lastMoveDirection * lastSpeed;
-                vel.y = RB.linearVelocity.y; // keep gravity and vertical velocity
-            }
+        else
+        {
+            //preserve forward momentum from when you jumped
+            vel = lastMoveDirection * lastSpeed;
+            vel.y = RB.linearVelocity.y; // keep gravity and vertical velocity
+        }
 
             RB.linearVelocity = vel;
+
+        // NEW Handle walking sound
+        bool isMoving = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && isGrounded();
+
+        if (isMoving)
+        {
+            if (!walkSource.isPlaying)
+                walkSource.Play();
+        }
+        else // END walking sound
+        {
+            if (walkSource.isPlaying)
+                walkSource.Stop();
+        }
 
         if (Input.GetKey(KeyCode.W))
         {

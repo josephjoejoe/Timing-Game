@@ -1483,6 +1483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88013d21c9c8462cac4cde93e485ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  walking: {fileID: 8300000, guid: f1f77720143e24e619dc7e15f5a52434, type: 3}
   walkSpeed: 5
   walkTimer: 0
   canMove: 0
@@ -3318,6 +3319,51 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 147a4aaa37a1342a1ab9eb566254d879, type: 3}
+--- !u!1 &961422812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 961422814}
+  - component: {fileID: 961422813}
+  m_Layer: 0
+  m_Name: SoundFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &961422813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961422812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5e6f258f2db4d9592e986b03d85d82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundFXManager
+  soundFXOnject: {fileID: 9103719257509520159, guid: dd29ffcdf10b44be6b2445b274a93c62, type: 3}
+--- !u!4 &961422814
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961422812}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -22.47365, y: 14.0321, z: -48.70075}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &977895377
 GameObject:
   m_ObjectHideFlags: 0
@@ -6227,3 +6273,4 @@ SceneRoots:
   - {fileID: 1754045331}
   - {fileID: 1395000078}
   - {fileID: 457615171}
+  - {fileID: 961422814}
