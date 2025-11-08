@@ -1495,6 +1495,8 @@ MonoBehaviour:
   landingSounds:
   - {fileID: 8300000, guid: a6320ea6454bc4737bf5231d43c874c1, type: 3}
   - {fileID: 8300000, guid: 422249f72fb14442884bd990ac73c3f1, type: 3}
+  fallingSounds:
+  - {fileID: 8300000, guid: e750cb8225cd245da96abacebeba56ac, type: 3}
   walkSpeed: 5
   walkTimer: 0
   canMove: 0

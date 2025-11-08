@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip[] footStepsSounds;
     public AudioClip[] jumpingSounds;
     public AudioClip[] landingSounds;
+    public AudioClip[] fallingSounds;
 
     //movement
     public float walkSpeed;
@@ -312,6 +313,12 @@ public class PlayerController : MonoBehaviour
     {
         int random = Random.Range(0, landingSounds.Length);
         var clip = landingSounds[random];
+        audioSource.PlayOneShot(clip);
+    }
+    public void Falling()
+    {
+        int random = Random.Range(0, fallingSounds.Length);
+        var clip = fallingSounds[random];
         audioSource.PlayOneShot(clip);
     }
 }
