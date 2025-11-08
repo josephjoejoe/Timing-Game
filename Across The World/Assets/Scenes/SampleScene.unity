@@ -1460,6 +1460,7 @@ GameObject:
   m_Component:
   - component: {fileID: 367352916}
   - component: {fileID: 367352913}
+  - component: {fileID: 367352919}
   - component: {fileID: 367352912}
   - component: {fileID: 367352918}
   - component: {fileID: 367352911}
@@ -1483,7 +1484,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88013d21c9c8462cac4cde93e485ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  walking: {fileID: 8300000, guid: f1f77720143e24e619dc7e15f5a52434, type: 3}
+  footStepsSounds:
+  - {fileID: 8300000, guid: 2de56fb0be21b4f90b7becec538a2ef7, type: 3}
+  - {fileID: 8300000, guid: a781d797ba78d4ff9b2ac3a00156b73e, type: 3}
+  - {fileID: 8300000, guid: 1785d48cde5ff4b689839657e365639f, type: 3}
+  jumpingSounds:
+  - {fileID: 8300000, guid: a890276c3a8b840a5bb0cc3b9d56d3a7, type: 3}
+  - {fileID: 8300000, guid: 32031a81f6b944aad8a28105ed7ebb28, type: 3}
+  - {fileID: 8300000, guid: dd7215533373840ada502afe2f76c9c7, type: 3}
+  landingSounds:
+  - {fileID: 8300000, guid: a6320ea6454bc4737bf5231d43c874c1, type: 3}
+  - {fileID: 8300000, guid: 422249f72fb14442884bd990ac73c3f1, type: 3}
   walkSpeed: 5
   walkTimer: 0
   canMove: 0
@@ -1603,6 +1614,103 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!82 &367352919
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367352910}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &377497659
 GameObject:
   m_ObjectHideFlags: 0
@@ -3343,7 +3451,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961422812}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a5e6f258f2db4d9592e986b03d85d82, type: 3}
   m_Name: 

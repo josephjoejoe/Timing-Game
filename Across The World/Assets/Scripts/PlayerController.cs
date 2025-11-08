@@ -6,10 +6,11 @@ public class PlayerController : MonoBehaviour
     //new movement
     //public Vector3 inputDir;
 
-    //sound FX
-    [SerializeField] private AudioClip walking;
-    private AudioSource walkSource;
-    private bool isWalkingSoundPlaying = false;
+    // for soundFX
+    AudioSource audioSource;
+    public AudioClip[] footStepsSounds;
+    public AudioClip[] jumpingSounds;
+    public AudioClip[] landingSounds;
 
     //movement
     public float walkSpeed;
@@ -45,18 +46,15 @@ public class PlayerController : MonoBehaviour
     {
         RB = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
         canMove = true;
         Debug.Log("Force-enabled canMove at start");
 
-        // --- Initialize walking audio source ---
-        walkSource = gameObject.AddComponent<AudioSource>();
-        walkSource.clip = walking;
-        walkSource.loop = true;
-        walkSource.playOnAwake = false;
-        walkSource.volume = 1f; // tweak to taste
+        
     }
 
     // Update is called once per frame
@@ -187,20 +185,6 @@ public class PlayerController : MonoBehaviour
 
             RB.linearVelocity = vel;
 
-        // NEW Handle walking sound
-        bool isMoving = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && isGrounded();
-
-        if (isMoving)
-        {
-            if (!walkSource.isPlaying)
-                walkSource.Play();
-        }
-        else // END walking sound
-        {
-            if (walkSource.isPlaying)
-                walkSource.Stop();
-        }
-
         if (Input.GetKey(KeyCode.W))
         {
             walkTimer += Time.deltaTime;
@@ -215,7 +199,6 @@ public class PlayerController : MonoBehaviour
         {
             jumpTimer += Time.deltaTime;
             jumpPower();
-            //anim.SetBool("Landing", false);
         }
         else
         {
@@ -313,5 +296,23 @@ public class PlayerController : MonoBehaviour
         Debug.Log("EnableMovement() CALLED");
     }
 
+    public void FootStep()
+    {
+        int random = Random.Range(0, footStepsSounds.Length);
+        var clip = footStepsSounds[random];
+        audioSource.PlayOneShot(clip);
+    }
+    public void Jumping()
+    {
+        int random = Random.Range(0, jumpingSounds.Length);
+        var clip = jumpingSounds[random];
+        audioSource.PlayOneShot(clip);
+    }
+    public void Landing()
+    {
+        int random = Random.Range(0, landingSounds.Length);
+        var clip = landingSounds[random];
+        audioSource.PlayOneShot(clip);
+    }
 }
 
