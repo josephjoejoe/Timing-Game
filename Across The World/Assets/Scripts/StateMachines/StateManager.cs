@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
 {
     protected Dictionary<EState, BaseState<EState>> State = new Dictionary<EState, BaseState<EState>>();
-    protected BaseState<EState> CurrentState;
+    public BaseState<EState> CurrentState;
 
     protected bool IsTransitioningState = false;
 
@@ -26,8 +26,6 @@ public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
         {
             TransitionToState(CurrentState.Statekey);
         }
-
-        CurrentState.EnterState(); // this will allow the EnterState to get called one per frame
     }
 
     public void TransitionToState(EState stateKey)

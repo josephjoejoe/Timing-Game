@@ -221,8 +221,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 47415552}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.50965285, y: 0.5368003, z: 0.43824622, w: 0.50994086}
-  m_LocalPosition: {x: -0.25982475, y: 0.91627187, z: 0.088588715}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.25982475, y: 0.91627187, z: 0.303}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -571,6 +571,7 @@ GameObject:
   m_Component:
   - component: {fileID: 107220308}
   - component: {fileID: 107220309}
+  - component: {fileID: 107220310}
   m_Layer: 0
   m_Name: EnviornmentalInteractionRig
   m_TagString: Untagged
@@ -737,6 +738,23 @@ MonoBehaviour:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0}
     m_Visible: 1
+--- !u!114 &107220310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107220307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a2b0d4fed5244073ad63511101b8ff5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnvironmentInteractionStateMachine
+  _leftIkConstraint: {fileID: 896873861}
+  _rightIkConstraint: {fileID: 1810227218}
+  _leftMultiRotationConstraint: {fileID: 896873862}
+  _rightMultiRotationConstraint: {fileID: 1810227219}
+  _playerController: {fileID: 1900801508}
 --- !u!1 &115459973
 GameObject:
   m_ObjectHideFlags: 0
@@ -3460,6 +3478,7 @@ GameObject:
   m_Component:
   - component: {fileID: 896873860}
   - component: {fileID: 896873861}
+  - component: {fileID: 896873862}
   m_Layer: 0
   m_Name: LeftArm
   m_TagString: Untagged
@@ -3496,7 +3515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeda7bfbf984f2a4da5ab4b8967b115d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.TwoBoneIKConstraint
-  m_Weight: 0
+  m_Weight: 1
   m_Data:
     m_Root: {fileID: 1947865255}
     m_Mid: {fileID: 252582809}
@@ -3508,6 +3527,53 @@ MonoBehaviour:
     m_HintWeight: 1
     m_MaintainTargetPositionOffset: 0
     m_MaintainTargetRotationOffset: 0
+--- !u!114 &896873862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896873859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdb90b913935e644baaa86c076d788e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.MultiRotationConstraint
+  m_Weight: 1
+  m_Data:
+    m_ConstrainedObject: {fileID: 47415553}
+    m_SourceObjects:
+      m_Length: 1
+      m_Item0:
+        transform: {fileID: 327079517}
+        weight: 1
+      m_Item1:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item2:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item3:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item4:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item5:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item6:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item7:
+        transform: {fileID: 0}
+        weight: 0
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_ConstrainedAxes:
+      x: 1
+      y: 1
+      z: 1
+    m_MaintainOffset: 0
 --- !u!4 &900898709 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 98410013009575947, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
@@ -5046,15 +5112,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6574882734343921810, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -2.1262407
+      value: -2.12626
       objectReference: {fileID: 0}
     - target: {fileID: -6574882734343921810, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0.000034815246
+      value: -0.00040069572
       objectReference: {fileID: 0}
     - target: {fileID: -6574882734343921810, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 85.09476
+      value: 85.09477
       objectReference: {fileID: 0}
     - target: {fileID: -6317818615819501424, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5362,15 +5428,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1873722300314729536, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -2.1262095
+      value: -2.1261678
       objectReference: {fileID: 0}
     - target: {fileID: -1873722300314729536, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0.0000080096415
+      value: -0.0003392884
       objectReference: {fileID: 0}
     - target: {fileID: -1873722300314729536, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -85.094696
+      value: -85.09475
       objectReference: {fileID: 0}
     - target: {fileID: -382367157834192841, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5870,7 +5936,12 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: f2080793901bb42fdaac97846d547fb4, type: 2}
     - target: {fileID: 5866666021909216657, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_WarningMessage
-      value: 
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'B-upperArm.L'\n\tTransform 'B-upperArm.R'\n\tTransform
+        'B-forearm.R'\n\tTransform 'B-forearm.L'\n\tTransform 'B-upperArm.L'\n\tTransform
+        'B-upperArm.R'\n\tTransform 'B-forearm.R'\n\tTransform 'B-forearm.L'\n\tTransform
+        'B-upperArm.L'\n\tTransform 'B-upperArm.R'\n\tand more ..."
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -5986,15 +6057,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6379265584044378490, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 24.493305
+      value: 2.4300117
       objectReference: {fileID: 0}
     - target: {fileID: 6379265584044378490, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 6.1408677
+      value: 5.591428
       objectReference: {fileID: 0}
     - target: {fileID: 6379265584044378490, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 2.316174
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6483163022523156236, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7086,8 +7157,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639634284}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.4945201, y: -0.5110851, z: -0.49429512, w: 0.49991438}
-  m_LocalPosition: {x: 0.26686096, y: 0.8984515, z: -0.05622101}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.2598248, y: 0.9162719, z: 0.303}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7609,6 +7680,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1810227217}
   - component: {fileID: 1810227218}
+  - component: {fileID: 1810227219}
   m_Layer: 0
   m_Name: RightArm
   m_TagString: Untagged
@@ -7645,7 +7717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeda7bfbf984f2a4da5ab4b8967b115d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.TwoBoneIKConstraint
-  m_Weight: 0
+  m_Weight: 1
   m_Data:
     m_Root: {fileID: 2077559560}
     m_Mid: {fileID: 309331044}
@@ -7657,6 +7729,53 @@ MonoBehaviour:
     m_HintWeight: 1
     m_MaintainTargetPositionOffset: 0
     m_MaintainTargetRotationOffset: 0
+--- !u!114 &1810227219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810227216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdb90b913935e644baaa86c076d788e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.MultiRotationConstraint
+  m_Weight: 1
+  m_Data:
+    m_ConstrainedObject: {fileID: 1639634285}
+    m_SourceObjects:
+      m_Length: 1
+      m_Item0:
+        transform: {fileID: 1115327712}
+        weight: 1
+      m_Item1:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item2:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item3:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item4:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item5:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item6:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item7:
+        transform: {fileID: 0}
+        weight: 0
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_ConstrainedAxes:
+      x: 1
+      y: 1
+      z: 1
+    m_MaintainOffset: 0
 --- !u!4 &1820386434 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4730173425095778080, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
@@ -8138,7 +8257,7 @@ Transform:
   m_GameObject: {fileID: 1934678354}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4343071, y: 1.2645004, z: -0.5230179}
+  m_LocalPosition: {x: 0.4343071, y: 1.1649997, z: -0.24100113}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8385,7 +8504,7 @@ Transform:
   m_GameObject: {fileID: 2008833260}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.4343071, y: 1.2645, z: -0.5230179}
+  m_LocalPosition: {x: -0.4343071, y: 1.165, z: -0.241}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
