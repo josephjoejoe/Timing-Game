@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour
     public float lastSpeed;
     public Vector3 lastMoveDirection; // stores movement direction when jumping
 
+    //Detecting Ledge
+    public bool ledgeDetect;
+    public GameObject ledgeDetector;
+
     public Rigidbody RB;
     public Camera eyes;
     public Animator anim;
@@ -206,6 +210,7 @@ public class PlayerController : MonoBehaviour
             jumpTimer = 0;
         }
         Debug.Log($"canMove: {canMove}, walkSpeed: {walkSpeed}, grounded: {isGrounded()}, velocity: {RB.linearVelocity}");
+
 
     }
 

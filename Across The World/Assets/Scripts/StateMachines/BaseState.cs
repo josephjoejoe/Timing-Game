@@ -1,21 +1,12 @@
 using UnityEngine;
-using System;
 
-public abstract class BaseState<EState> where EState : Enum // ESstate must be an Emun type
+public abstract class BaseState 
 {
-    public BaseState(EState key)
+    public void StateUpate()
     {
-        Statekey = key;
+          
     }
 
-    public EState Statekey { get; private set; }
 
-    //void means nothing
-    public abstract void EnterState();
-    public abstract void ExitState();
-    public abstract void UpdateState();
-    public abstract EState GetNextState();
-    public abstract void OnTriggerEnter(Collider other);
-    public abstract void OnTriggerStay(Collider other);
-    public abstract void OnTriggerExit(Collider other);
+
 }
