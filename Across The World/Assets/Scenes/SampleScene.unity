@@ -221,8 +221,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 47415552}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.25982475, y: 0.91627187, z: 0.303}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.25982475, y: 0.91627187, z: 0.3030014}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 68546047}
   - component: {fileID: 68546046}
   - component: {fileID: 68546045}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 93336598}
   - component: {fileID: 93336597}
   - component: {fileID: 93336596}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plank (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b342d8ce5c2fd48b8fa3147d48d1d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.Rig
-  m_Weight: 0
+  m_Weight: 1
   m_Effectors:
   - m_Transform: {fileID: 0}
     m_Style:
@@ -1135,7 +1135,7 @@ GameObject:
   - component: {fileID: 217818351}
   - component: {fileID: 217818350}
   - component: {fileID: 217818349}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1246,7 +1246,7 @@ GameObject:
   - component: {fileID: 219989998}
   - component: {fileID: 219989997}
   - component: {fileID: 219989996}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1460,7 +1460,7 @@ GameObject:
   - component: {fileID: 301283639}
   - component: {fileID: 301283638}
   - component: {fileID: 301283637}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1721,112 +1721,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 367352916}
-  - component: {fileID: 367352913}
-  - component: {fileID: 367352912}
-  - component: {fileID: 367352918}
-  - component: {fileID: 367352911}
-  - component: {fileID: 367352917}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &367352911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 367352910}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a88013d21c9c8462cac4cde93e485ac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  footStepsSounds:
-  - {fileID: 8300000, guid: 2de56fb0be21b4f90b7becec538a2ef7, type: 3}
-  - {fileID: 8300000, guid: a781d797ba78d4ff9b2ac3a00156b73e, type: 3}
-  - {fileID: 8300000, guid: 1785d48cde5ff4b689839657e365639f, type: 3}
-  jumpingSounds:
-  - {fileID: 8300000, guid: a890276c3a8b840a5bb0cc3b9d56d3a7, type: 3}
-  - {fileID: 8300000, guid: 32031a81f6b944aad8a28105ed7ebb28, type: 3}
-  - {fileID: 8300000, guid: dd7215533373840ada502afe2f76c9c7, type: 3}
-  landingSounds:
-  - {fileID: 8300000, guid: a6320ea6454bc4737bf5231d43c874c1, type: 3}
-  - {fileID: 8300000, guid: 422249f72fb14442884bd990ac73c3f1, type: 3}
-  fallingSounds:
-  - {fileID: 8300000, guid: e750cb8225cd245da96abacebeba56ac, type: 3}
-  walkSpeed: 5
-  walkTimer: 0
-  canMove: 0
-  sprintSpeed: 6
-  jumpForce: 5
-  jumpTimer: 0
-  onGround: 0
-  lastSpeed: 0
-  lastMoveDirection: {x: 0, y: 0, z: 0}
-  ledgeDetect: 0
-  ledgeDetector: {fileID: 0}
-  RB: {fileID: 367352912}
-  eyes: {fileID: 330585545}
-  anim: {fileID: 1900801502}
-  groundCheckDistance: 1.01
-  cubeSize: {x: 0.72, y: 0.03, z: 0.68}
-  mouseSensitivity: 1
-  jumpMeter: {fileID: 2001742818}
-  maxJump: 3
---- !u!54 &367352912
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 367352910}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!136 &367352913
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 367352910}
-  m_Material: {fileID: 13400000, guid: 6ea78206544924f19ac46679b2678ed5, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.2716055
-  m_Height: 1.84
-  m_Direction: 1
-  m_Center: {x: 0, y: -0.08, z: 0.01804161}
+  m_IsActive: 0
 --- !u!4 &367352916
 Transform:
   m_ObjectHideFlags: 0
@@ -1839,45 +1740,9 @@ Transform:
   m_LocalPosition: {x: -21.18, y: 15.163, z: -54.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1148709276}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &367352917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 367352910}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dec9e666cd8b742d99ae7c05e482822f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractableRaycast
-  crosshair: {fileID: 1859352244}
---- !u!95 &367352918
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 367352910}
-  m_Enabled: 0
-  m_Avatar: {fileID: 9000000, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
-  m_Controller: {fileID: 9100000, guid: f2080793901bb42fdaac97846d547fb4, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &377497659
 GameObject:
   m_ObjectHideFlags: 0
@@ -1890,7 +1755,7 @@ GameObject:
   - component: {fileID: 377497663}
   - component: {fileID: 377497662}
   - component: {fileID: 377497661}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plank (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2211,7 +2076,7 @@ GameObject:
   - component: {fileID: 442149346}
   - component: {fileID: 442149345}
   - component: {fileID: 442149344}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plank (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2322,7 +2187,7 @@ GameObject:
   - component: {fileID: 445843593}
   - component: {fileID: 445843592}
   - component: {fileID: 445843591}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plank (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2572,108 +2437,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 469736786}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &477243542
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 477243543}
-  - component: {fileID: 477243545}
-  - component: {fileID: 477243544}
-  m_Layer: 0
-  m_Name: Ledge Detector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &477243543
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477243542}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1148709276}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &477243544
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477243542}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.4099903, y: 0.21785355, z: 0.2508583}
-  m_Center: {x: 0.040637016, y: 1.5845652, z: 0.37457085}
---- !u!23 &477243545
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477243542}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!4 &492308386 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6607456166803784113, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
@@ -2832,7 +2595,7 @@ GameObject:
   - component: {fileID: 776432914}
   - component: {fileID: 776432913}
   - component: {fileID: 776432912}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2943,7 +2706,7 @@ GameObject:
   - component: {fileID: 784214927}
   - component: {fileID: 784214926}
   - component: {fileID: 784214925}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Building (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3058,7 +2821,7 @@ GameObject:
   - component: {fileID: 791157512}
   - component: {fileID: 791157511}
   - component: {fileID: 791157510}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3487,8 +3250,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 47415553}
   - {fileID: 2008833261}
+  - {fileID: 47415553}
   m_Father: {fileID: 107220308}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &896873861
@@ -3527,14 +3290,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb90b913935e644baaa86c076d788e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.MultiRotationConstraint
-  m_Weight: 0
+  m_Weight: 1
   m_Data:
     m_ConstrainedObject: {fileID: 47415553}
     m_SourceObjects:
       m_Length: 1
       m_Item0:
         transform: {fileID: 327079517}
-        weight: 0
+        weight: 1
       m_Item1:
         transform: {fileID: 0}
         weight: 0
@@ -3695,7 +3458,7 @@ GameObject:
   - component: {fileID: 939415634}
   - component: {fileID: 939415633}
   - component: {fileID: 939415632}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plank (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4089,7 +3852,7 @@ GameObject:
   - component: {fileID: 1103331957}
   - component: {fileID: 1103331956}
   - component: {fileID: 1103331955}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4665,7 +4428,7 @@ GameObject:
   - component: {fileID: 1192153031}
   - component: {fileID: 1192153030}
   - component: {fileID: 1192153029}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4808,19 +4571,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 367352916}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -21.18
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.996
+      value: 14.167
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -54.11
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5542,6 +5305,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HumanM_Model
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1137762978639492140, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.00000055704623
@@ -5928,12 +5695,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: f2080793901bb42fdaac97846d547fb4, type: 2}
     - target: {fileID: 5866666021909216657, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'B-upperArm.L'\n\tTransform 'B-upperArm.R'\n\tTransform
-        'B-forearm.R'\n\tTransform 'B-forearm.L'\n\tTransform 'B-upperArm.L'\n\tTransform
-        'B-upperArm.R'\n\tTransform 'B-forearm.R'\n\tTransform 'B-forearm.L'\n\tTransform
-        'B-upperArm.L'\n\tTransform 'B-upperArm.R'\n\tand more ..."
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -6372,9 +6134,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 330585546}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 477243543}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       insertIndex: -1
@@ -6675,7 +6434,7 @@ GameObject:
   - component: {fileID: 1515715505}
   - component: {fileID: 1515715504}
   - component: {fileID: 1515715503}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6785,7 +6544,7 @@ GameObject:
   - component: {fileID: 1521697842}
   - component: {fileID: 1521697841}
   - component: {fileID: 1521697840}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6918,7 +6677,7 @@ GameObject:
   - component: {fileID: 1629236398}
   - component: {fileID: 1629236397}
   - component: {fileID: 1629236396}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plank (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7029,7 +6788,7 @@ GameObject:
   - component: {fileID: 1638354200}
   - component: {fileID: 1638354199}
   - component: {fileID: 1638354198}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plank (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7152,8 +6911,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639634284}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2598248, y: 0.9162719, z: 0.303}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.25982475, y: 0.91627187, z: 0.3030014}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7171,7 +6930,7 @@ GameObject:
   - component: {fileID: 1653525380}
   - component: {fileID: 1653525379}
   - component: {fileID: 1653525378}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7282,7 +7041,7 @@ GameObject:
   - component: {fileID: 1676850825}
   - component: {fileID: 1676850824}
   - component: {fileID: 1676850823}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plank (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7514,7 +7273,7 @@ GameObject:
   - component: {fileID: 1741045329}
   - component: {fileID: 1741045328}
   - component: {fileID: 1741045327}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plank (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7696,8 +7455,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1639634285}
   - {fileID: 1934678355}
+  - {fileID: 1639634285}
   m_Father: {fileID: 107220308}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1810227218
@@ -7712,7 +7471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeda7bfbf984f2a4da5ab4b8967b115d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.TwoBoneIKConstraint
-  m_Weight: 0
+  m_Weight: 1
   m_Data:
     m_Root: {fileID: 2077559560}
     m_Mid: {fileID: 309331044}
@@ -7736,14 +7495,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb90b913935e644baaa86c076d788e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.MultiRotationConstraint
-  m_Weight: 0
+  m_Weight: 1
   m_Data:
     m_ConstrainedObject: {fileID: 1639634285}
     m_SourceObjects:
       m_Length: 1
       m_Item0:
         transform: {fileID: 1115327712}
-        weight: 0
+        weight: 1
       m_Item1:
         transform: {fileID: 0}
         weight: 0
@@ -8146,8 +7905,6 @@ MonoBehaviour:
   onGround: 0
   lastSpeed: 0
   lastMoveDirection: {x: 0, y: 0, z: 0}
-  ledgeDetect: 0
-  ledgeDetector: {fileID: 0}
   RB: {fileID: 1900801507}
   eyes: {fileID: 330585545}
   anim: {fileID: 1900801502}
@@ -8156,6 +7913,22 @@ MonoBehaviour:
   mouseSensitivity: 1
   jumpMeter: {fileID: 2001742818}
   maxJump: 3
+  body: {fileID: 1148709276}
+  leftHandTarget: {fileID: 47415553}
+  rightHandTarget: {fileID: 1639634285}
+  ledgeLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  grabDistance: 1
+  grabHeight: 1.7
+  handMoveSpeed: 5
+  handLiftHeight: 0.15
+  handSpacing: 0.25
+  ikWeight: 0
+  ikBlendSpeed: 4
+  ikActive: 0
+  handRig: {fileID: 107220309}
+  grabbing: 0
 --- !u!1001 &1907022054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8297,7 +8070,7 @@ GameObject:
   - component: {fileID: 1995530757}
   - component: {fileID: 1995530756}
   - component: {fileID: 1995530755}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plank (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8529,7 +8302,7 @@ GameObject:
   - component: {fileID: 2039465700}
   - component: {fileID: 2039465699}
   - component: {fileID: 2039465698}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8939,6 +8712,7 @@ SceneRoots:
   - {fileID: 1521697842}
   - {fileID: 410087041}
   - {fileID: 832575519}
+  - {fileID: 1353474494}
   - {fileID: 367352916}
   - {fileID: 1427990687}
   - {fileID: 1103261026}
