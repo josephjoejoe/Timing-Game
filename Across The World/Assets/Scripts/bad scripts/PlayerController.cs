@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
     private float grabLerp = 1f;
     public bool grabbing = false;
 
-    // NEW: Track if the ledge is being held manually
+    // Track if the ledge is being held manually
     private bool holdingLedge = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -351,30 +351,30 @@ public class PlayerController : MonoBehaviour
         Debug.Log("EnableMovement() CALLED");
     }
 
-    public void FootStep()
-    {
-        int random = Random.Range(0, footStepsSounds.Length);
-        var clip = footStepsSounds[random];
-        audioSource.PlayOneShot(clip);
-    }
-    public void Jumping()
-    {
-        int random = Random.Range(0, jumpingSounds.Length);
-        var clip = jumpingSounds[random];
-        audioSource.PlayOneShot(clip);
-    }
-    public void Landing()
-    {
-        int random = Random.Range(0, landingSounds.Length);
-        var clip = landingSounds[random];
-        audioSource.PlayOneShot(clip);
-    }
-    public void Falling()
-    {
-        int random = Random.Range(0, fallingSounds.Length);
-        var clip = fallingSounds[random];
-        audioSource.PlayOneShot(clip);
-    }
+    //public void FootStep()
+    //{
+    //    int random = Random.Range(0, footStepsSounds.Length);
+    //    var clip = footStepsSounds[random];
+    //    audioSource.PlayOneShot(clip);
+    //}
+    //public void Jumping()
+    //{
+    //    int random = Random.Range(0, jumpingSounds.Length);
+    //    var clip = jumpingSounds[random];
+    //    audioSource.PlayOneShot(clip);
+    //}
+    //public void Landing()
+    //{
+    //    int random = Random.Range(0, landingSounds.Length);
+    //    var clip = landingSounds[random];
+    //    audioSource.PlayOneShot(clip);
+    //}
+    //public void Falling()
+    //{
+    //    int random = Random.Range(0, fallingSounds.Length);
+    //    var clip = fallingSounds[random];
+    //    audioSource.PlayOneShot(clip);
+    //}
 
     // LEDGE GRAB METHODS
     void DetectLedge()
@@ -412,7 +412,7 @@ public class PlayerController : MonoBehaviour
                     Vector3 basePoint = ledgeHit.point; // create two seperate grab points
                     leftGrabPoint = basePoint - body.right * handSpacing;
                     rightGrabPoint = basePoint + body.right * handSpacing;
-
+                    RB.useGravity = false;
                     canMove = false; // stop player movement while holding
                 }
             }

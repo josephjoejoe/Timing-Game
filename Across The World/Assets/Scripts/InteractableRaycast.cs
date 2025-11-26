@@ -7,7 +7,7 @@ public class InteractableRaycast : MonoBehaviour
 {
     private float raylength = 5;
 
-    private KeyCode killEnemy = KeyCode.Mouse0;
+    //private KeyCode killEnemy = KeyCode.Mouse0;
 
     public Image crosshair;
 
@@ -32,7 +32,7 @@ public class InteractableRaycast : MonoBehaviour
             {
                 CrosshairChange(true);
 
-                if (Input.GetKeyDown(killEnemy))
+                if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
                     // Check if the enemy is not the player or parented player
                     GameObject target = hit.collider.gameObject;
@@ -48,7 +48,7 @@ public class InteractableRaycast : MonoBehaviour
 
                     // Destroy the enemy
                     Destroy(target);
-                    Debug.Log("Enemy destroyed while attached!");
+                    Debug.Log("Enemy destroyed!");
                 }
             }
         }
@@ -57,7 +57,6 @@ public class InteractableRaycast : MonoBehaviour
             CrosshairChange(false);
         }
     }
-
 
     void CrosshairChange(bool on)
     {
