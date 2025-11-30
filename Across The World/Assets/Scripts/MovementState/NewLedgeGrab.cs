@@ -6,7 +6,7 @@ public class NewLedgeGrab : BaseState
     public GameObject ledgeDetector;
 
     public bool onLedge = false;
-    float speed = 10;
+    float speed = 5;
 
     public Rigidbody RB;
     PlayerMovement playerMovement;
@@ -48,6 +48,13 @@ public class NewLedgeGrab : BaseState
                 RB.useGravity = false;
 
                 RB.linearVelocity = Vector3.zero;
+
+                Collider ledgeCol = ledge.GetComponent<Collider>();
+                Vector3 ledgeMin = ledgeCol.bounds.min;
+                Vector3 ledgeMax = ledgeCol.bounds.max;
+
+                Vector3 pos = transform.position;
+                pos.x = Mathf.Clamp(pos.x, ledgeMin.x, ledgeMax.x); // clamp X within ledge
             }
 
             if (Input.GetKeyDown(KeyCode.Space) && playerMovement.xRotation > 0f)
