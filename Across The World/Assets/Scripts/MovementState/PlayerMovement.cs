@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.UI.GridLayoutGroup;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : BaseState
 {
     //movement
     public float walkSpeed;
@@ -17,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody RB;
     public Camera eyes;
     public Animator anim;
+    public LedgeDetection ledgeDetection;
+    public GameObject ledgeDetector;
 
     //groundcheck raycast
     public float groundCheckDistance;
@@ -24,12 +27,17 @@ public class PlayerMovement : MonoBehaviour
     RaycastHit hit;
 
     //mouse
-    private float xRotation = 0f;
+    public float xRotation = 0f;
     public float mouseSensitivity;
 
     // Jump Meter
     public Image jumpMeter;
     public float maxJump;
+
+    private void Awake()
+    {
+        ledgeDetection.OnGrabLedge.AddListener(CaughtLedge);
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -72,94 +80,97 @@ public class PlayerMovement : MonoBehaviour
         xRotation += yRot;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         eyes.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-
-        Vector3 vel = new Vector3(0, 0, 0);
-        if (isGrounded())
+        if (isActive)
         {
-            anim.SetBool("Idle", true);
-            float currentSpeed = walkSpeed;
+            RB.useGravity = true;
+            Vector3 vel = new Vector3(0, 0, 0);
+            if (isGrounded())
+            {
+                anim.SetBool("Idle", true);
+                float currentSpeed = walkSpeed;
 
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                currentSpeed = sprintSpeed;
-            }
-
-            if (Input.GetKey(KeyCode.W))
-            {
-                vel += transform.forward * currentSpeed;
-                walkTimer += Time.deltaTime;
-            }
-
-            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
-            {
-                vel += transform.forward * sprintSpeed;
-            }
-
-            if (Input.GetKey(KeyCode.D))
-            {
-                vel += transform.right * currentSpeed;
-            }
-            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.D))
-            {
-                vel += transform.right * sprintSpeed;
-            }
-
-            if (Input.GetKey(KeyCode.S))
-            {
-                vel -= transform.forward * currentSpeed;
-            }
-            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.S))
-            {
-                vel -= transform.forward * sprintSpeed;
-            }
-
-            if (Input.GetKey(KeyCode.A))
-            {
-                vel -= transform.right * currentSpeed;
-            }
-            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.A))
-            {
-                vel -= transform.right * sprintSpeed;
-            }
-
-            // Save the player's current move direction & speed before jumping
-            lastMoveDirection = vel.normalized;
-            lastSpeed = currentSpeed; // only use the actual chosen speed
-
-            if (jumpForce > 0 && Input.GetKeyUp(KeyCode.Space) && isGrounded())
-            {
-                vel.y += jumpForce;
-            }
-            else
-            {
-                vel.y = RB.linearVelocity.y;
-                jumpForce = 5;
-            }
-
-            if (canMove)
-            {
-                if (!isGrounded())
+                if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    walkSpeed = 0;
-                    sprintSpeed = 0;
-                    walkTimer = 0;
-                    anim.SetBool("Idle", false);
+                    currentSpeed = sprintSpeed;
+                }
+
+                if (Input.GetKey(KeyCode.W))
+                {
+                    vel += transform.forward * currentSpeed;
+                    walkTimer += Time.deltaTime;
+                }
+
+                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
+                {
+                    vel += transform.forward * sprintSpeed;
+                }
+
+                if (Input.GetKey(KeyCode.D))
+                {
+                    vel += transform.right * currentSpeed;
+                }
+                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.D))
+                {
+                    vel += transform.right * sprintSpeed;
+                }
+
+                if (Input.GetKey(KeyCode.S))
+                {
+                    vel -= transform.forward * currentSpeed;
+                }
+                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.S))
+                {
+                    vel -= transform.forward * sprintSpeed;
+                }
+
+                if (Input.GetKey(KeyCode.A))
+                {
+                    vel -= transform.right * currentSpeed;
+                }
+                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.A))
+                {
+                    vel -= transform.right * sprintSpeed;
+                }
+
+                // Save the player's current move direction & speed before jumping
+                lastMoveDirection = vel.normalized;
+                lastSpeed = currentSpeed; // only use the actual chosen speed
+
+                if (jumpForce > 0 && Input.GetKeyUp(KeyCode.Space) && isGrounded())
+                {
+                    vel.y += jumpForce;
                 }
                 else
                 {
-                    walkSpeed = 5;
-                    sprintSpeed = 6;
+                    vel.y = RB.linearVelocity.y;
+                    jumpForce = 5;
+                }
+
+                if (canMove)
+                {
+                    if (!isGrounded())
+                    {
+                        walkSpeed = 0;
+                        sprintSpeed = 0;
+                        walkTimer = 0;
+                        anim.SetBool("Idle", false);
+                    }
+                    else
+                    {
+                        walkSpeed = 5;
+                        sprintSpeed = 6;
+                    }
                 }
             }
-        }
-        else
-        {
-            //preserve forward momentum from when you jumped
-            vel = lastMoveDirection * lastSpeed;
-            vel.y = RB.linearVelocity.y; // keep gravity and vertical velocity
-        }
+            else
+            {
+                //preserve forward momentum from when you jumped
+                vel = lastMoveDirection * lastSpeed;
+                vel.y = RB.linearVelocity.y; // keep gravity and vertical velocity
+            }
 
-        RB.linearVelocity = vel;
+            RB.linearVelocity = vel;
+        }
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -188,6 +199,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, -transform.up, out hit, groundCheckDistance))
         {
+            ledgeDetector.SetActive(true); // this gets turned off in the newledgegrab
             onGround = true;
             return true;
         }
@@ -272,5 +284,11 @@ public class PlayerMovement : MonoBehaviour
         RB.constraints = RigidbodyConstraints.None; // allow movement
         RB.freezeRotation = true; // if you want to keep rotation stable
         Debug.Log("EnableMovement() CALLED");
+    }
+
+    public void CaughtLedge(GameObject ledgeFound)
+    {
+        owner.ledgeState.onLedge = ledgeFound;
+        owner.SwapState(owner.ledgeState);
     }
 }
