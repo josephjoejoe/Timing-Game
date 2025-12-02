@@ -7,11 +7,9 @@ public class InteractableRaycast : MonoBehaviour
 {
     private float raylength = 5;
 
-    //private KeyCode killEnemy = KeyCode.Mouse0;
-
     public Image crosshair;
 
-    private const string interactableTag = "Enemy";
+    public bool collectedPlank;
 
     void Start()
     {
@@ -23,12 +21,14 @@ public class InteractableRaycast : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 forward = transform.TransformDirection(Vector3.forward);
-
+        Debug.DrawLine(transform.position, transform.position + forward * 5, Color.blue);
         // Button Raycast
         if (Physics.Raycast(transform.position, forward, out hit, raylength))
         {
+            print(hit.collider.gameObject.name);
+
             // Make sure we only destroy objects with the Enemy tag
-            if (hit.collider.CompareTag(interactableTag))
+            if (hit.collider.CompareTag("Enemy"))
             {
                 CrosshairChange(true);
 
@@ -50,12 +50,51 @@ public class InteractableRaycast : MonoBehaviour
                     Destroy(target);
                     Debug.Log("Enemy destroyed!");
                 }
+
             }
+
+            //if (hit.collider.gameObject.CompareTag("Wood"))
+            //{
+            //    CrosshairChange(true);
+
+            //    if (Input.GetKey(KeyCode.Mouse0))
+            //    {
+            //        GameObject material = hit.collider.gameObject;
+            //        collectedPlank = true;
+            //        Destroy(material);
+            //        Debug.Log("Collected Material");
+            //    }
+            //}
+
         }
         else
         {
             CrosshairChange(false);
         }
+
+        if (Physics.Raycast(transform.position, forward, out hit, raylength))
+        {
+            print(hit.collider.gameObject.name);
+
+            if (hit.collider.gameObject.CompareTag("Wood"))
+            {
+                CrosshairChange(true);
+
+                if (Input.GetKey(KeyCode.Mouse0))
+                {
+                    GameObject material = hit.collider.gameObject;
+                    collectedPlank = true;
+                    Destroy(material);
+                    Debug.Log("Collected Material");
+                }
+            }
+
+        }
+        else
+        {
+            CrosshairChange(false);
+        }
+
     }
 
     void CrosshairChange(bool on)

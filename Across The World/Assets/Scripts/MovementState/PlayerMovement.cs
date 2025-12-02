@@ -20,6 +20,7 @@ public class PlayerMovement : BaseState
     public Animator anim;
     public LedgeDetection ledgeDetection;
     public GameObject ledgeDetector;
+    public Transform Player;
 
     //groundcheck raycast
     public float groundCheckDistance;

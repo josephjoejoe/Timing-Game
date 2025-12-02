@@ -42,6 +42,7 @@ public class NewLedgeGrab : BaseState
 
             if (onLedge == true)
             {
+
                 transform.position += direction * transform.right * speed * Time.deltaTime; // horizontal movement 
                 transform.position = new Vector3(transform.position.x, ledge.transform.position.y - 1.5f, transform.position.z);
 

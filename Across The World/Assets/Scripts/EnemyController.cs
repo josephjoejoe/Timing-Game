@@ -32,14 +32,11 @@ public class EnemyController : MonoBehaviour
                 Vector3 direction = (player.position - transform.position).normalized;
                 Vector3 newPosition = transform.position + direction * chaseSpeed * Time.deltaTime;
                 RB.MovePosition(newPosition);
-                if (gotPlayer == false)
-                {
-                    transform.LookAt(player);
-                }
-                else
+                if (gotPlayer == true)
                 {
                     transform.LookAt(restartPoint);
                 }
+                
                 Debug.Log("chasing");
             }
         }
