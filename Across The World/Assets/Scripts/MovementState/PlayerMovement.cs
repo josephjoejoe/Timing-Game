@@ -20,7 +20,6 @@ public class PlayerMovement : BaseState
     public Animator anim;
     public LedgeDetection ledgeDetection;
     public GameObject ledgeDetector;
-    public Transform Player;
 
     //groundcheck raycast
     public float groundCheckDistance;
@@ -217,27 +216,27 @@ public class PlayerMovement : BaseState
 
     void jumpPower()
     {
-        if (jumpTimer > 0.5)
+        if (jumpTimer > 0)
         {
             jumpForce = 5.5f;
         }
-        if (jumpTimer > 1)
+        if (jumpTimer > 0.2)
         {
             jumpForce = 6f;
         }
-        if (jumpTimer > 1.5)
+        if (jumpTimer > 0.4)
         {
             jumpForce = 6.5f;
         }
-        if (jumpTimer > 2)
+        if (jumpTimer > 0.6)
         {
             jumpForce = 7f;
         }
-        if (jumpTimer > 2.5)
+        if (jumpTimer > 0.8)
         {
             jumpForce = 7.5f;
         }
-        if (jumpTimer > 3)
+        if (jumpTimer > 1)
         {
             jumpForce = 8f;
         }
