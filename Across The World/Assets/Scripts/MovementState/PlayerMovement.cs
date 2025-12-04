@@ -164,9 +164,29 @@ public class PlayerMovement : BaseState
             }
             else
             {
-                //preserve forward momentum from when you jumped
-                vel = lastMoveDirection * lastSpeed;
-                vel.y = RB.linearVelocity.y; // keep gravity and vertical velocity
+                // --- AIR CONTROL ---
+                float airControl = 0.15f; // how much influence the player has in air (0–1)
+
+                Vector3 inputDir = Vector3.zero;
+
+                if (Input.GetKey(KeyCode.W)) inputDir += transform.forward;
+                if (Input.GetKey(KeyCode.S)) inputDir -= transform.forward;
+                if (Input.GetKey(KeyCode.D)) inputDir += transform.right;
+                if (Input.GetKey(KeyCode.A)) inputDir -= transform.right;
+
+                inputDir = inputDir.normalized;
+
+                // keep air movement weaker than ground
+                Vector3 airMove = inputDir * lastSpeed * airControl;
+
+                // preserve jumping momentum  
+                Vector3 preserved = lastMoveDirection * lastSpeed * (1 - airControl);
+
+                // combine
+                vel = preserved + airMove;
+
+                // keep vertical velocity unchanged
+                vel.y = RB.linearVelocity.y;
             }
 
             RB.linearVelocity = vel;
