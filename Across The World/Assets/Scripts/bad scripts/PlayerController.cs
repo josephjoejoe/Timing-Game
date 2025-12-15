@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Animations.Rigging; // for Animation Rigging
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,10 +25,6 @@ public class PlayerController : MonoBehaviour
     public float lastSpeed;
     public Vector3 lastMoveDirection; // stores movement direction when jumping
 
-    //Detecting Ledge
-    public bool ledgeDetect;
-    public GameObject ledgeDetector;
-
     public Rigidbody RB;
     public Camera eyes;
     public Animator anim;
@@ -44,7 +41,42 @@ public class PlayerController : MonoBehaviour
     // Jump Meter
     public Image jumpMeter;
     public float maxJump;
-    
+
+    // Ledge Grab
+    public Transform body;
+
+    public Transform leftHandTarget; // IK target for the hand 
+    public Transform rightHandTarget; // IK target for the hand
+
+    public LayerMask ledgeLayer;
+
+    public float grabDistance = 1f;
+    public float grabHeight = 1.5f;
+    public float handMoveSpeed = 5f;
+    public float handLiftHeight = 0.15f;
+    public float handSpacing = 0.25f;  // distance between left & right hand
+
+    // IK Weight Control
+    [Header("IK Weight Control")]
+    public float ikWeight = 0f;  // current weight
+    public float ikBlendSpeed = 4f; // speed of blend
+    public bool ikActive = false;  // should IK be active?
+
+    // Reference to Animation Rig 
+    [Header("Animation Rigging")]
+    public Rig handRig;  // << Drag your rig here
+
+    private Vector3 leftOldPos;
+    private Vector3 rightOldPos;
+
+    private Vector3 leftGrabPoint;
+    private Vector3 rightGrabPoint;
+
+    private float grabLerp = 1f;
+    public bool grabbing = false;
+
+    // Track if the ledge is being held manually
+    private bool holdingLedge = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -58,8 +90,6 @@ public class PlayerController : MonoBehaviour
 
         canMove = true;
         Debug.Log("Force-enabled canMove at start");
-
-        
     }
 
     // Update is called once per frame
@@ -70,13 +100,11 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("HorzVel", horz.magnitude);
 
         //controles how anaimtion works for jumping
-        Vector3 vert = new Vector3(0, RB.linearVelocity.y,0);
+        Vector3 vert = new Vector3(0, RB.linearVelocity.y, 0);
         anim.SetFloat("VertVel", vert.magnitude);
-
 
         // jump meter to show the player how much power the jump will have
         jumpMeter.fillAmount = Mathf.Clamp01(jumpTimer / maxJump);
-
 
         //Look left/right with body 
         float xRot = Input.GetAxis("Mouse X") * mouseSensitivity;
@@ -92,16 +120,38 @@ public class PlayerController : MonoBehaviour
         xRotation += yRot;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         eyes.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        // new movement
-        //inputDir = Input.GetAxisRaw("Horizontal") * Camera.main.transform.right + Input.GetAxisRaw("Vertical") * Camera.main.transform.forward;
-        //inputDir.y = 0;
-        //inputDir.Normalize();
 
-        if (!canMove)
+        // LEDGE DETECTION & IK
+        DetectLedge();
+
+        // Smooth IK weight blend
+        float targetWeight = ikActive ? 1f : 0f;
+        ikWeight = Mathf.MoveTowards(ikWeight, targetWeight, Time.deltaTime * ikBlendSpeed);
+
+        // Apply IK weight to the Animation Rig
+        if (handRig != null)
+            handRig.weight = ikWeight;
+
+        if (grabbing)
+        {
+            AnimateHandGrab();
+        }
+
+        // NEW: Release ledge manually with jump key
+        if (holdingLedge && Input.GetKeyDown(KeyCode.Space))
+        {
+            holdingLedge = false;
+            ikActive = false;
+            canMove = true;
+        }
+
+        // PLAYER MOVEMENT
+        if (!canMove || (ikActive && !holdingLedge)) // prevent movement while grabbing
         {
             RB.linearVelocity = Vector3.zero; // optional, keep them still
-            return; // prevents any movement when disabled
+            return; // prevents any movement when disabled or grabbing
         }
+
         Vector3 vel = new Vector3(0, 0, 0);
         if (isGrounded())
         {
@@ -188,7 +238,7 @@ public class PlayerController : MonoBehaviour
             vel.y = RB.linearVelocity.y; // keep gravity and vertical velocity
         }
 
-            RB.linearVelocity = vel;
+        RB.linearVelocity = vel;
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -209,9 +259,8 @@ public class PlayerController : MonoBehaviour
         {
             jumpTimer = 0;
         }
-        Debug.Log($"canMove: {canMove}, walkSpeed: {walkSpeed}, grounded: {isGrounded()}, velocity: {RB.linearVelocity}");
 
-
+        Debug.Log($"canMove: {canMove}, walkSpeed: {walkSpeed}, grounded: {isGrounded()}, velocity: {RB.linearVelocity}, ikActive: {ikActive}");
     }
 
     public bool isGrounded()
@@ -232,7 +281,7 @@ public class PlayerController : MonoBehaviour
 
     void jumpPower()
     {
-        if(jumpTimer > 0.5)
+        if (jumpTimer > 0.5)
         {
             jumpForce = 5.5f;
         }
@@ -267,7 +316,7 @@ public class PlayerController : MonoBehaviour
         {
             walkSpeed = 3.5f;
         }
-        if (walkTimer > 0.6f)
+        if (walkTimer > 0.6)
         {
             walkSpeed = 4;
         }
@@ -302,29 +351,112 @@ public class PlayerController : MonoBehaviour
         Debug.Log("EnableMovement() CALLED");
     }
 
-    public void FootStep()
+    //public void FootStep()
+    //{
+    //    int random = Random.Range(0, footStepsSounds.Length);
+    //    var clip = footStepsSounds[random];
+    //    audioSource.PlayOneShot(clip);
+    //}
+    //public void Jumping()
+    //{
+    //    int random = Random.Range(0, jumpingSounds.Length);
+    //    var clip = jumpingSounds[random];
+    //    audioSource.PlayOneShot(clip);
+    //}
+    //public void Landing()
+    //{
+    //    int random = Random.Range(0, landingSounds.Length);
+    //    var clip = landingSounds[random];
+    //    audioSource.PlayOneShot(clip);
+    //}
+    //public void Falling()
+    //{
+    //    int random = Random.Range(0, fallingSounds.Length);
+    //    var clip = fallingSounds[random];
+    //    audioSource.PlayOneShot(clip);
+    //}
+
+    // LEDGE GRAB METHODS
+    void DetectLedge()
     {
-        int random = Random.Range(0, footStepsSounds.Length);
-        var clip = footStepsSounds[random];
-        audioSource.PlayOneShot(clip);
+        bool ledgeDetected = false;   // track if we detect any ledge this frame 
+
+        Ray forwardRay = new Ray(body.position + Vector3.up * grabHeight, body.forward); // cast forward to detect a ledge
+        Debug.DrawRay(forwardRay.origin, forwardRay.direction * grabDistance, Color.red);
+
+        if (Physics.Raycast(forwardRay, out RaycastHit wallHit, grabDistance, ledgeLayer))
+        {
+            Debug.DrawLine(forwardRay.origin, wallHit.point, Color.green);
+
+            Ray downRay = new Ray(wallHit.point + Vector3.up * 0.25f, Vector3.down); // cast downward from the top of the wall
+            Debug.DrawRay(downRay.origin, Vector3.down * 1f, Color.yellow);
+
+            if (Physics.Raycast(downRay, out RaycastHit ledgeHit, 1f, ledgeLayer))
+            {
+                Debug.DrawLine(downRay.origin, ledgeHit.point, Color.blue);
+
+                ledgeDetected = true;   // we detected a ledge 
+
+                if (grabLerp >= 1f && !holdingLedge) // start grab if not already grabbing 
+                {
+                    grabbing = true;
+                    grabLerp = 0f;
+
+                    // Turn IK ON
+                    ikActive = true;
+                    holdingLedge = true; // NEW: player is now holding the ledge
+
+                    leftOldPos = leftHandTarget.position; // save old hand position
+                    rightOldPos = rightHandTarget.position;
+
+                    Vector3 basePoint = ledgeHit.point; // create two seperate grab points
+                    leftGrabPoint = basePoint - body.right * handSpacing;
+                    rightGrabPoint = basePoint + body.right * handSpacing;
+                    RB.useGravity = false;
+                    canMove = false; // stop player movement while holding
+                }
+            }
+        }
+
+        // Only turn IK off when the ledge is truly gone and not manually held ***
+        if (!ledgeDetected && !holdingLedge)
+        {
+            grabbing = false;     // stop animation only
+            ikActive = false;     // fade IK weight back to 0
+            grabLerp = 1f;        // allow future grabs
+        }
     }
-    public void Jumping()
+
+    void AnimateHandGrab()
     {
-        int random = Random.Range(0, jumpingSounds.Length);
-        var clip = jumpingSounds[random];
-        audioSource.PlayOneShot(clip);
+        if (grabLerp < 1f)
+        {
+            Vector3 leftPos = Vector3.Lerp(leftOldPos, leftGrabPoint, grabLerp);
+            leftPos.y += Mathf.Sin(grabLerp * Mathf.PI) * handLiftHeight;
+
+            Vector3 rightPos = Vector3.Lerp(rightOldPos, rightGrabPoint, grabLerp);
+            rightPos.y += Mathf.Sin(grabLerp * Mathf.PI) * handLiftHeight;
+
+            leftHandTarget.position = leftPos;
+            rightHandTarget.position = rightPos;
+
+            grabLerp += Time.deltaTime * handMoveSpeed;
+        }
+        else
+        {
+            // lock in place — BUT DO NOT TURN IK OFF
+            leftHandTarget.position = leftGrabPoint;
+            rightHandTarget.position = rightGrabPoint;
+
+            grabbing = false;  // animation finished, but IK stays active
+        }
     }
-    public void Landing()
+
+    // Call this when letting go of the ledge manually
+    public void ReleaseLedge()
     {
-        int random = Random.Range(0, landingSounds.Length);
-        var clip = landingSounds[random];
-        audioSource.PlayOneShot(clip);
-    }
-    public void Falling()
-    {
-        int random = Random.Range(0, fallingSounds.Length);
-        var clip = fallingSounds[random];
-        audioSource.PlayOneShot(clip);
+        ikActive = false;
+        holdingLedge = false;
+        canMove = true;
     }
 }
-
