@@ -23,6 +23,7 @@ public class PlayerMovementStateMachine : MonoBehaviour
     public void SwapState(BaseState newState) 
     {
         currentState.isActive = false;
+        currentState.ExitState();
         currentState = newState;
         currentState.isActive = true;
         currentState.EnterState();

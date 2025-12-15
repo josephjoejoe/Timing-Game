@@ -6,6 +6,7 @@ public class PlayerMovement : BaseState
 {
     //movement
     public float walkSpeed;
+    public float walkBackwardsSpeed;
     public float walkTimer;
     public bool canMove = true;
     public float sprintSpeed;
@@ -117,6 +118,7 @@ public class PlayerMovement : BaseState
                 if (Input.GetKey(KeyCode.S))
                 {
                     vel -= transform.forward * currentSpeed;
+                    currentSpeed = walkBackwardsSpeed;
                 }
                 if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.S))
                 {
@@ -138,6 +140,7 @@ public class PlayerMovement : BaseState
 
                 if (jumpForce > 0 && Input.GetKeyUp(KeyCode.Space) && isGrounded())
                 {
+                    print("Grounded Jump");
                     vel.y += jumpForce;
                 }
                 else
@@ -191,6 +194,10 @@ public class PlayerMovement : BaseState
 
             RB.linearVelocity = vel;
         }
+        else
+        {
+            print(lastMoveDirection);
+        }
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -212,9 +219,10 @@ public class PlayerMovement : BaseState
             jumpTimer = 0;
         }
 
-        Debug.Log($"canMove: {canMove}, walkSpeed: {walkSpeed}, grounded: {isGrounded()}, velocity: {RB.linearVelocity}");
+        //Debug.Log($"canMove: {canMove}, walkSpeed: {walkSpeed}, grounded: {isGrounded()}, velocity: {RB.linearVelocity}");
     }
 
+    
     public bool isGrounded()
     {
         if (Physics.Raycast(transform.position, -transform.up, out hit, groundCheckDistance))
@@ -290,6 +298,7 @@ public class PlayerMovement : BaseState
         canMove = false;
         walkSpeed = 0;
         sprintSpeed = 0;
+        lastSpeed = 0;
         RB.linearVelocity = Vector3.zero;
         RB.angularVelocity = Vector3.zero; // stop spinning
     }
@@ -304,6 +313,16 @@ public class PlayerMovement : BaseState
         RB.constraints = RigidbodyConstraints.None; // allow movement
         RB.freezeRotation = true; // if you want to keep rotation stable
         Debug.Log("EnableMovement() CALLED");
+    }
+
+    public override void ExitState()
+    {
+        DisableMovement();
+    }
+
+    public override void EnterState()
+    {
+        EnableMovement();
     }
 
     public void CaughtLedge(GameObject ledgeFound)

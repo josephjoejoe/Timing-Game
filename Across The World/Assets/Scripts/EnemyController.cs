@@ -48,7 +48,6 @@ public class EnemyController : MonoBehaviour
             transform.LookAt(restartPoint);
             playerController.DisableMovement();
         }
-        
 
         if (gotPlayer && Vector3.Distance(transform.position, restartPoint.position) < 1f)
         {

@@ -12,6 +12,16 @@ public class NewLedgeGrab : BaseState
     PlayerMovement playerMovement;
     public LedgeDetection ledgeDetection;
 
+    public override void ExitState()
+    {
+
+    }
+
+    public override void EnterState()
+    {
+
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -101,7 +111,7 @@ public class NewLedgeGrab : BaseState
         Collider col = ledge.GetComponent<Collider>();
         float topY = col.bounds.max.y;
 
-        transform.position = new Vector3(transform.position.x, topY, transform.position.z);
+        transform.position = new Vector3(transform.position.x, topY, transform.position.z) + transform.forward * 0.5f;
     }
 
 }
