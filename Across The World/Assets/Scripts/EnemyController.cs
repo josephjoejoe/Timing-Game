@@ -6,11 +6,11 @@ public class EnemyController : MonoBehaviour
     public float dragSpeed;
     public float enemyRadius;
     public float resting;
-
+ 
     public Transform player;
     public Transform restartPoint;
     Rigidbody RB;
-    private PlayerController playerController;
+    private PlayerMovement playerMovement;
 
     public bool gotPlayer;
 
@@ -18,7 +18,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         RB = GetComponent<Rigidbody>();
-        playerController = player.GetComponent<PlayerController>();
+        playerMovement = player.GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -46,7 +46,7 @@ public class EnemyController : MonoBehaviour
             Vector3 newPosition1 = transform.position + direction * dragSpeed * Time.deltaTime;
             RB.MovePosition(newPosition1);
             transform.LookAt(restartPoint);
-            playerController.DisableMovement();
+            playerMovement.DisableMovement();
         }
 
         if (gotPlayer && Vector3.Distance(transform.position, restartPoint.position) < 1f)
@@ -54,7 +54,7 @@ public class EnemyController : MonoBehaviour
             player.SetParent(null, true);
             player.position = restartPoint.position + Vector3.up * 1.5f;
             gotPlayer = false;
-            playerController.EnableMovement();
+            playerMovement.EnableMovement();
             var playerRb = player.GetComponent<Rigidbody>();
             playerRb.WakeUp();
             playerRb.isKinematic = false; // ensure physics is active
@@ -81,7 +81,7 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Player"))
         {
             player.SetParent(transform);
-            playerController.DisableMovement();
+            playerMovement.DisableMovement();
             gotPlayer = true;
             Debug.Log("Got You");
         }

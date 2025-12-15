@@ -22,6 +22,9 @@ public class PlayerMovement : BaseState
     public LedgeDetection ledgeDetection;
     public GameObject ledgeDetector;
 
+    public Transform player;
+    private Quaternion resetRotation;
+
     //groundcheck raycast
     public float groundCheckDistance;
     public Vector3 cubeSize;
@@ -45,6 +48,8 @@ public class PlayerMovement : BaseState
     {
         RB = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+
+        resetRotation = transform.rotation;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -313,6 +318,8 @@ public class PlayerMovement : BaseState
         RB.constraints = RigidbodyConstraints.None; // allow movement
         RB.freezeRotation = true; // if you want to keep rotation stable
         Debug.Log("EnableMovement() CALLED");
+        player.transform.rotation = resetRotation; 
+
     }
 
     public override void ExitState()

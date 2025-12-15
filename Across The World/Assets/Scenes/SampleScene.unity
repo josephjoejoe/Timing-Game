@@ -20127,6 +20127,7 @@ MonoBehaviour:
   anim: {fileID: 1900801502}
   ledgeDetection: {fileID: 2142841876}
   ledgeDetector: {fileID: 2142841873}
+  player: {fileID: 1148709276}
   groundCheckDistance: 0.1
   cubeSize: {x: 0.72, y: 0.03, z: 0.68}
   xRotation: 0
