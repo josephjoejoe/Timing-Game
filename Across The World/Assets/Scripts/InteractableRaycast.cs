@@ -38,12 +38,12 @@ public class InteractableRaycast : MonoBehaviour
                     GameObject target = hit.collider.gameObject;
 
                     // If the enemy has the player as a child, detach player first
-                    PlayerController playerController = target.GetComponentInChildren<PlayerController>();
-                    if (playerController != null)
+                    PlayerMovement playerMovement = target.GetComponentInChildren<PlayerMovement>();
+                    if (playerMovement != null)
                     {
                         // Release the player if attached
-                        playerController.transform.SetParent(null);
-                        playerController.EnableMovement();
+                        playerMovement.transform.SetParent(null);
+                        playerMovement.EnableMovement();
                     }
 
                     // Destroy the enemy
@@ -52,20 +52,6 @@ public class InteractableRaycast : MonoBehaviour
                 }
 
             }
-
-            //if (hit.collider.gameObject.CompareTag("Wood"))
-            //{
-            //    CrosshairChange(true);
-
-            //    if (Input.GetKey(KeyCode.Mouse0))
-            //    {
-            //        GameObject material = hit.collider.gameObject;
-            //        collectedPlank = true;
-            //        Destroy(material);
-            //        Debug.Log("Collected Material");
-            //    }
-            //}
-
         }
         else
         {

@@ -223,8 +223,6 @@ public class PlayerMovement : BaseState
         {
             jumpTimer = 0;
         }
-
-        //Debug.Log($"canMove: {canMove}, walkSpeed: {walkSpeed}, grounded: {isGrounded()}, velocity: {RB.linearVelocity}");
     }
 
     
